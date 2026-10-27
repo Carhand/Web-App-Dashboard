@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#111318">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Sleeper Build">
+<title>Sleeper Build Dashboard</title>
+<style>
+:root{color-scheme:dark;--bg:#101116;--panel:#191b23;--panel2:#222530;--text:#f4f5f7;--muted:#a9adbb;--line:#303340;--accent:#b7f36b;--accentText:#151a10;--warn:#ffd58a}
+*{box-sizing:border-box} body{margin:0;background:radial-gradient(ellipse at top,#222638 0,#101116 45%);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.45;padding:env(safe-area-inset-top) 16px calc(26px + env(safe-area-inset-bottom));}
+main{max-width:680px;margin:0 auto}.top{display:flex;justify-content:space-between;align-items:center;padding:22px 2px 14px}.eyebrow{font-size:11px;letter-spacing:.16em;color:var(--accent);font-weight:800}.brand{font-size:29px;letter-spacing:-.04em;font-weight:850;margin:4px 0}.sub{color:var(--muted);font-size:13px}.chip{border:1px solid #414653;border-radius:99px;padding:7px 10px;font-size:11px;color:var(--muted);white-space:nowrap}
+.hero{background:linear-gradient(135deg,#242a39,#191b23 65%);border:1px solid #353949;border-radius:22px;padding:19px;margin:8px 0 16px;position:relative;overflow:hidden}.hero:after{content:"";position:absolute;width:140px;height:140px;border:1px solid #3b4353;border-radius:50%;right:-42px;top:-38px;box-shadow:0 0 0 18px #ffffff03,0 0 0 38px #ffffff02}.hero h2{font-size:20px;margin:7px 0}.hero p{color:#c0c5d2;font-size:13px;max-width:85%;margin:0 0 15px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{background:#ffffff08;border:1px solid #ffffff10;border-radius:13px;padding:10px}.stat strong{display:block;font-size:20px}.stat span{font-size:10px;color:var(--muted)}
+.tabs{display:flex;gap:7px;overflow:auto;padding:2px 0 12px}.tab{flex:1;border:1px solid var(--line);background:var(--panel);color:var(--muted);border-radius:12px;padding:10px 12px;font-weight:700;white-space:nowrap}.tab.active{background:var(--accent);color:var(--accentText);border-color:var(--accent)}
+.section{display:none}.section.active{display:block}.section-title{display:flex;justify-content:space-between;align-items:end;margin:8px 1px 10px}.section-title h2{margin:0;font-size:20px;letter-spacing:-.025em}.section-title small{color:var(--muted)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:17px;padding:15px;margin-bottom:10px}.card h3{margin:0 0 5px;font-size:15px}.muted{color:var(--muted);font-size:12px}.dayrow{display:flex;gap:12px;align-items:center}.day{width:46px;height:46px;border-radius:13px;background:var(--panel2);display:grid;place-items:center;font-size:12px;font-weight:800}.dayrow .desc{flex:1}.tag{font-size:10px;color:var(--accent);font-weight:800;letter-spacing:.06em}.btn{border:0;border-radius:12px;background:var(--accent);color:var(--accentText);font-weight:800;padding:11px 14px;font-size:13px}.btn.secondary{background:var(--panel2);color:var(--text);border:1px solid var(--line)}.btn.full{width:100%;margin-top:8px}
+.exercise{display:grid;grid-template-columns:1fr auto;gap:8px;padding:13px 0;border-bottom:1px solid var(--line)}.exercise:last-child{border-bottom:0}.exercise strong{display:block;font-size:14px}.exercise .sets{font-size:12px;color:var(--accent);margin:2px 0}.exercise p{margin:4px 0 0;color:var(--muted);font-size:12px}.tick{width:26px;height:26px;accent-color:var(--accent);margin-top:2px}
+.progressbar{height:8px;background:#343744;border-radius:99px;overflow:hidden;margin:9px 0}.progressbar div{height:100%;width:0;background:var(--accent);transition:width .2s}.weekgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}.weekday{background:var(--panel2);border-radius:10px;padding:9px 3px;text-align:center;font-size:10px;color:var(--muted)}.weekday strong{display:block;font-size:12px;color:var(--text);margin-bottom:4px}.weekday.done{background:#293a24;color:var(--accent)}.weekday.done strong{color:var(--accent)}
+.note{border-left:3px solid var(--warn);padding:10px 12px;background:#ffd58a0c;border-radius:0 10px 10px 0;color:#e9dfca;font-size:12px;margin:10px 0}.food{display:flex;gap:10px;margin:11px 0}.food .dot{color:var(--accent);font-weight:900}.food p{margin:0;font-size:13px}.food small{display:block;color:var(--muted);margin-top:2px;font-size:12px}
+.footer{color:var(--muted);font-size:11px;text-align:center;padding:15px 4px 6px}.hide{display:none!important}
+@media(min-width:540px){body{padding-left:24px;padding-right:24px}.hero{padding:23px}.card{padding:18px}}
+</style>
+</head>
+<body>
+<main>
+<header class="top"><div><div class="eyebrow">YOUR PERSONAL TRAINING LOG</div><div class="brand">SLEEPER BUILD<span style="color:var(--accent)">.</span></div><div class="sub">Start where you are. Build steadily.</div></div><div class="chip">NO EQUIPMENT</div></header>
+<div class="hero"><div class="tag">THE GAME PLAN</div><h2>Strong all over. One week at a time.</h2><p>Three short strength sessions, easy movement, and recovery. No crash diets, no punishment workouts.</p><div class="stats"><div class="stat"><strong id="weekNum">01</strong><span>TRAINING WEEK</span></div><div class="stat"><strong id="doneCount">0/3</strong><span>WORKOUTS THIS WEEK</span></div><div class="stat"><strong>15–20</strong><span>MIN / SESSION</span></div></div></div>
+<nav class="tabs" aria-label="Dashboard sections"><button class="tab active" data-tab="home">Overview</button><button class="tab" data-tab="workouts">Workouts</button><button class="tab" data-tab="progress">Progress</button><button class="tab" data-tab="fuel">Fuel & recovery</button></nav>
+<section class="section active" id="home">
+<div class="section-title"><h2>This week</h2><small id="weekDates">Your schedule</small></div>
+<div id="schedule"></div>
+<div class="card"><h3>Weekly consistency</h3><div class="muted">Check off the strength sessions you complete. A missed day is not a failure—just continue when you're ready.</div><div class="progressbar"><div id="weekBar"></div></div><div class="muted" id="weekSummary">0 of 3 strength sessions checked off</div></div>
+<div class="note">Safety first: skip hard training if you feel weak, dizzy, shaky, or unwell—especially if you haven't had enough food.</div>
+</section>
+<section class="section" id="workouts">
+<div class="section-title"><h2>Workout A</h2><small>Monday & Friday</small></div>
+<div class="card"><div class="muted">Warm up for 2 minutes: easy marching, shoulder circles, and comfortable knee bends.</div><div id="workoutA"></div></div>
+<div class="section-title"><h2>Workout B</h2><small>Wednesday</small></div>
+<div class="card"><div class="muted">Warm up for 2 minutes. Move slowly and keep every rep comfortable.</div><div id="workoutB"></div></div>
+<div class="note">Rest 45–90 seconds between sets, or longer as needed. Stop an exercise if it causes pain, swelling, locking, or instability. Painless joint sounds alone are often harmless.</div>
+</section>
+<section class="section" id="progress">
+<div class="section-title"><h2>Your progress</h2><small>Consistency over perfection</small></div>
+<div class="card"><h3>Training weeks completed</h3><div class="muted">Use the button when you've completed a week. Progress depends on recovery, food access, and consistency; this isn't a deadline.</div><div class="progressbar"><div id="longBar"></div></div><div id="longSummary" class="muted">Week 1 of 12</div><button class="btn full" id="completeWeek">Finish this week & start next</button><button class="btn secondary full" id="resetProgress">Reset all progress</button></div>
+<div class="card"><h3>Signs you're getting stronger</h3><div class="food"><span class="dot">✓</span><p>Push-ups feel more controlled.</p></div><div class="food"><span class="dot">✓</span><p>You can do a few more good-quality reps.</p></div><div class="food"><span class="dot">✓</span><p>Walking feels less tiring.</p></div><div class="food"><span class="dot">✓</span><p>You recover more comfortably between sets.</p></div><div class="muted">Visible changes may take weeks to months and vary from person to person. You don't need to weigh yourself or measure your body to make progress.</div></div>
+</section>
+<section class="section" id="fuel">
+<div class="section-title"><h2>Fuel & recovery</h2><small>Keep it realistic</small></div>
+<div class="card"><h3>When food is available</h3><div class="muted">No special groceries or supplements required. Use what your household already has.</div>
+<div class="food"><span class="dot">•</span><p><strong>Staples</strong><small>Rice, pasta, bread, oats, or potatoes provide energy.</small></p></div>
+<div class="food"><span class="dot">•</span><p><strong>Protein when available</strong><small>Beans, eggs, peanut butter, milk, meat, or leftovers can all help.</small></p></div>
+<div class="food"><span class="dot">•</span><p><strong>Other foods</strong><small>Fruit or vegetables when available; every meal doesn't have to be perfect.</small></p></div>
+<div class="note">You deserve enough food. Don't skip meals, restrict food, or exercise to earn food. If your household sometimes doesn't have enough, consider asking a trusted adult or school counselor about school meals or local food support.</div></div>
+<div class="card"><h3>Recovery basics</h3><div class="food"><span class="dot">✓</span><p>Rest between strength days.</p></div><div class="food"><span class="dot">✓</span><p>Drink water when available, especially during exercise.</p></div><div class="food"><span class="dot">✓</span><p>Stop and rest if you feel dizzy, shaky, weak, or unwell.</p></div><div class="food"><span class="dot">✓</span><p>Aim for adequate sleep; teens generally need 8–10 hours.</p></div></div>
+</section>
+<div class="footer">Made for your starting point • Free • No equipment<br>Progress at your pace. Your health comes first.</div>
+</main>
+<script>
+const defaultState={week:1,completed:[],sessions:[],weeklyHistory:[]};
+let state={...defaultState};
+if(!Array.isArray(state.sessions)) state.sessions=[];
+try{const saved=localStorage.getItem("sleeperBuildState");if(saved)state={...state,...JSON.parse(saved)}}catch(e){}
+const A=[
+["Floor push-ups","2 × 5–10 reps","Chest, triceps, shoulders. Keep your body aligned; use knee push-ups if needed."],
+["Bodyweight squats","2 × 8–12 reps","Thighs and glutes. Use a comfortable depth."],
+["Prone W raises","2 × 8–12 reps","Lie face down, arms in a W; gently lift hands and elbows, squeeze shoulder blades, then lower."],
+["Glute bridges","2 × 10–15 reps","Lift hips smoothly without over-arching your lower back."],
+["Dead bugs","2 × 6 per side","Extend opposite arm and leg slowly while keeping your trunk controlled."]
+];
+const B=[
+["Supported reverse lunges","2 × 5–8 per side","Use a wall for balance and a shallow range. Skip if knees or hips hurt."],
+["Push-ups","2 × 5–10 reps","Use regular or knee push-ups with comfortable shoulder and wrist positions."],
+["Hip hinges","2 × 10 reps","Knees soft, hips back, back comfortably neutral; return to standing."],
+["Calf raises","2 × 12–15 reps","Rise onto the balls of your feet and lower slowly; use a wall for balance."],
+["Bird dogs","2 × 6 per side","On hands and knees, extend opposite arm and leg while keeping your torso steady."]
+];
+function save(){try{localStorage.setItem("sleeperBuildState",JSON.stringify(state))}catch(e){}render()}
+function renderExercises(id,arr,prefix){document.getElementById(id).innerHTML=arr.map((e,i)=>{let key=prefix+i;return `<div class="exercise"><div><strong>${e[0]}</strong><div class="sets">${e[1]}</div><p>${e[2]}</p></div><input class="tick" type="checkbox" aria-label="Mark ${e[0]} complete" data-ex="${key}" ${state.completed.includes(key)?"checked":""}></div>`}).join("");document.querySelectorAll("[data-ex]").forEach(el=>el.addEventListener("change",()=>{if(el.checked){if(!state.completed.includes(el.dataset.ex))state.completed.push(el.dataset.ex)}else state.completed=state.completed.filter(x=>x!==el.dataset.ex);save()})}
+function renderSchedule(){let days=[["MON","Workout A","Strength"],["TUE","Easy movement","5–10 min, if comfortable"],["WED","Workout B","Strength"],["THU","Recovery","Rest or gentle movement"],["FRI","Workout A","Strength"],["SAT","Optional movement","Walk, dance, or enjoy an activity"],["SUN","Rest","Recover"]];document.getElementById("schedule").innerHTML=days.map(d=>{let sid=d[0];let strength=["MON","WED","FRI"].includes(sid);return `<div class="card dayrow"><div class="day">${d[0]}</div><div class="desc"><h3>${d[1]}</h3><div class="muted">${d[2]}</div></div>${strength?`<button class="btn ${state.sessions.includes(sid)?"secondary":""}" data-session="${sid}" aria-pressed="${state.sessions.includes(sid)}">${state.sessions.includes(sid)?"Done ✓":"Complete"}</button>`:""}</div>`}).join("");document.querySelectorAll("[data-session]").forEach(el=>el.addEventListener("click",()=>{let id=el.dataset.session;state.sessions=state.sessions.includes(id)?state.sessions.filter(x=>x!==id):[...state.sessions,id];save()}))}
+function render(){let daysDone=state.sessions.length;document.getElementById("weekNum").textContent=String(state.week).padStart(2,"0");document.getElementById("doneCount").textContent=daysDone+"/3";document.getElementById("weekBar").style.width=(daysDone/3*100)+"%";document.getElementById("weekSummary").textContent=daysDone+" of 3 strength sessions checked off this week";document.getElementById("longBar").style.width=(Math.min(state.week-1,12)/12*100)+"%";document.getElementById("longSummary").textContent="Week "+Math.min(state.week,12)+" of 12";renderSchedule();renderExercises("workoutA",A,"A");renderExercises("workoutB",B,"B")}
+document.querySelectorAll(".tab").forEach(btn=>btn.addEventListener("click",()=>{document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b===btn));document.querySelectorAll(".section").forEach(s=>s.classList.toggle("active",s.id===btn.dataset.tab))}));
+document.getElementById("completeWeek").addEventListener("click",()=>{let count=state.weeklyHistory.length?state.weeklyHistory[state.weeklyHistory.length-1].count:0;if(!confirm("Mark this training week complete and start the next one? Only do this if the week has genuinely ended."))return;state.weeklyHistory.push({week:state.week,count:state.sessions.length});state.week=Math.min(12,state.week+1);state.completed=[];state.sessions=[];save();window.scrollTo({top:0,behavior:"smooth"})});
+document.getElementById("resetProgress").addEventListener("click",()=>{if(confirm("Reset all workout progress on this device? This cannot be undone.")){state={...defaultState,completed:[],sessions:[],weeklyHistory:[]};save()}});
+render();
+</script>
+</body>
+</html>
